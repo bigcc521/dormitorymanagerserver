@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liang.dormitoryserver.mapper.DistrictMapper">
+    <select id="getDistrictWithApartment" resultMap="districtWithApartment">
+        select district.id did,district.name dname,apartment.id aid,apartment.name aname
+      from district left join apartment on district.id=apartment.district
+    </select>
+    <resultMap id="districtWithApartment" type="com.liang.dormitoryserver.entity.District">
+        <id property="id" column="did"/>
+        <result property="name" column="dname"/>
+        <collection property="apartments" ofType="com.liang.dormitoryserver.entity.Apartment" >
+            <id property="id" column="aid"/>
+            <result property="name" column="aname"/>
+        </collection>
+    </resultMap>
+</mapper>

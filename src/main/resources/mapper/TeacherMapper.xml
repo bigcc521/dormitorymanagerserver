@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liang.dormitoryserver.mapper.TeacherMapper">
+    <select id="getTeacherWithRole" parameterType="string" resultMap="teacherWithRole">
+      select teacher.id tid,teacher.name tname,password,phone,adress,birth,sex,email,role.id rid,role.name rname
+      from teacher left join role on role.id=teacher.role where teacher.name=#{name}
+    </select>
+    <resultMap id="teacherWithRole" type="com.liang.dormitoryserver.entity.Teacher">
+        <id property="id" column="tid"/>
+        <result property="name" column="tname"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="adress" column="adress"/>
+        <result property="birth" column="birth"/>
+        <result property="sex" column="sex"/>
+        <result property="email" column="email"/>
+        <association property="role" javaType="com.liang.dormitoryserver.entity.Role">
+            <id property="id" column="rid"/>
+            <result property="name" column="rname"/>
+        </association>
+    </resultMap>
+
+</mapper>
